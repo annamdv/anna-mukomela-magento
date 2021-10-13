@@ -1,4 +1,11 @@
 RewriteEngine on
+
+SetEnvIf Host .*anna-mukomela-magento.local.* MAGE_RUN_CODE=base
+SetEnvIf Host .*anna-mukomela-magento.local.* MAGE_RUN_TYPE=website
+
+SetEnvIf Host .*anna-mukomela-magento.us.* MAGE_RUN_CODE=us_website
+SetEnvIf Host .*anna-mukomela-magento.us.* MAGE_RUN_TYPE=website
+
 RewriteCond %{REQUEST_URI} !^/pub/
 RewriteCond %{REQUEST_URI} !^/setup/
 RewriteCond %{REQUEST_URI} !^/update/
