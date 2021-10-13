@@ -1,5 +1,5 @@
 # SSL certificates for development
-# $ mkcert -cert-file=anna-mukomela-magento.local+1.pem -key-file=anna-mukomela-magento.local+1-key.pem anna-mukomela-magento.local www.anna-mukomela-magento.local
+# $ mkcert -cert-file=anna-mukomela-magento.local+3.pem -key-file=anna-mukomela-magento.local+3-key.pem anna-mukomela-magento.local www.anna-mukomela-magento.local anna-mukomela-magento.us www.anna-mukomela-magento.us
 #
 # Start composition:
 # $ docker-compose up -d
@@ -27,33 +27,22 @@ services:
     labels:
       - traefik.enable=true
       # HTTP
-      - traefik.http.routers.anna-mukomela-magento-local-http.rule=Host(`anna-mukomela-magento.local`,`www.anna-mukomela-magento.local`)
+      - traefik.http.routers.anna-mukomela-magento-local-http.rule=Host(`anna-mukomela-magento.local`,`www.anna-mukomela-magento.local`,'anna-mukomela-magento.us www.anna-mukomela-magento.us')
       - traefik.http.routers.anna-mukomela-magento-local-http.entrypoints=http
       - traefik.http.routers.anna-mukomela-magento-local-http.service=anna-mukomela-magento-local-http
       - traefik.http.services.anna-mukomela-magento-local-http.loadbalancer.server.port=80
       - traefik.http.services.anna-mukomela-magento-local-http.loadbalancer.server.scheme=http
       # HTTPS
-      - traefik.http.routers.anna-mukomela-magento-local-https.rule=Host(`anna-mukomela-magento.local`,`www.anna-mukomela-magento.local`)
+      - traefik.http.routers.anna-mukomela-magento-local-https.rule=Host(`anna-mukomela-magento.local`,`www.anna-mukomela-magento.local`,'anna-mukomela-magento.us www.anna-mukomela-magento.us')
       - traefik.http.routers.anna-mukomela-magento-local-https.entrypoints=https
       - traefik.http.routers.anna-mukomela-magento-local-https.tls=true
       - traefik.http.routers.anna-mukomela-magento-local-https.service=anna-mukomela-magento-local-https
       - traefik.http.services.anna-mukomela-magento-local-https.loadbalancer.server.port=443
       - traefik.http.services.anna-mukomela-magento-local-https.loadbalancer.server.scheme=https
       # Develop with extension that allows setting livereload host and port - https://github.com/lokcito/livereload-extensions
-      - traefik.http.routers.anna-mukomela-magento-local-livereload-https.rule=Host(`anna-mukomela-magento.local`,`www.anna-mukomela-magento.local`)
-      - traefik.http.routers.anna-mukomela-magento-local-livereload-https.entrypoints=livereload-https
-      - traefik.http.routers.anna-mukomela-magento-local-livereload-https.tls=true
-      - traefik.http.routers.anna-mukomela-magento-local-livereload-https.service=anna-mukomela-magento-local-livereload-https
-      - traefik.http.services.anna-mukomela-magento-local-livereload-https.loadbalancer.server.port=35729
-      - traefik.http.services.anna-mukomela-magento-local-livereload-https.loadbalancer.server.scheme=http
-      - traefik.http.routers.anna-mukomela-magento-local-livereload-http.rule=Host(`anna-mukomela-magento.local`,`www.anna-mukomela-magento.local`)
-      - traefik.http.routers.anna-mukomela-magento-local-livereload-http.entrypoints=livereload-http
-      - traefik.http.routers.anna-mukomela-magento-local-livereload-http.service=anna-mukomela-magento-local-livereload-http
-      - traefik.http.services.anna-mukomela-magento-local-livereload-http.loadbalancer.server.port=35730
-      - traefik.http.services.anna-mukomela-magento-local-livereload-http.loadbalancer.server.scheme=http
-    # Must add extra_hosts to be written to /etc/hosts - otherwise containerized application can not curl itself
+      # Must add extra_hosts to be written to /etc/hosts - otherwise containerized application can not curl itself
     extra_hosts:
-      - "anna-mukomela-magento.local www.anna-mukomela-magento.local:127.0.0.1"
+      - "anna-mukomela-magento.local www.anna-mukomela-magento.local anna-mukomela-magento.us www.anna-mukomela-magento.us:127.0.0.1"
       # Required for xDebug on Linux hosts till docker.host.internal is not available by default - https://github.com/docker/libnetwork/pull/2348/files
       - "host.docker.internal:172.17.0.1"
     links:
