@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Annam\ControllerDemos\Controller\FooBar\YetAnotherFolder;
 
 use Magento\Framework\Controller\Result\Raw;
-use PHP_CodeSniffer\Generators\HTML;
 
 class RawResponseDemo implements
     \Magento\Framework\App\Action\HttpGetActionInterface
@@ -38,10 +37,10 @@ class RawResponseDemo implements
         $content = <<<HTML
 <ul>
     <li>
-        <a href="/annam-controller-demos/foobar_yetanotherfolder/redirectresponsedemo/" target="_blank">RedirectResponseDemo</a>
+        <a href="/annam-controller-demos/foobar_yetanotherfolder/redirectresponsedemo/">RedirectResponseDemo</a>
     </li>
     <li>
-        <a href="/annam-controller-demos/foobar_yetanotherfolder/forwardresponsedemo/?vendor_name=Annam&module_name=ControllerDemos" target="_blank">ForwardResponseDemo</a>
+        <a href="/annam-controller-demos/foobar_yetanotherfolder/forwardresponsedemo/?vendor_name=Annam&module_name=ControllerDemos">ForwardResponseDemo</a>
     </li>
 </ul>
 
